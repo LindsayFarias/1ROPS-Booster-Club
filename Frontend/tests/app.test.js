@@ -1,5 +1,5 @@
 import App from '../src/App';
-import Homepage from '../src/components/Homepage';
+import Homepage from '../src/components/Homepage.js';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-router-dom';
 import { act } from "react-dom/test-utils";

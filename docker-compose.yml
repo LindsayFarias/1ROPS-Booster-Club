@@ -1,0 +1,45 @@
+version: "3"
+services:
+  db:
+    image: 'postgres:latest'
+    container_name: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./server/database:/var/lib/postgresql/data
+    networks:
+      - boosterclub
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+       
+  server:
+    build: ./server
+    container_name: server
+    volumes:
+      - ./server:/app
+    ports:
+      - "3001:3000"
+    networks:
+      - boosterclub
+    environment:
+      DB_CONNECTION_STRING: postgres://postgres:docker@db:5432/postgres
+    depends_on:
+      - db
+      
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - boosterclub
+    depends_on:
+      - server
+
+networks:
+  boosterclub:
+    driver: bridge
