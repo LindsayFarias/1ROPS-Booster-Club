@@ -1,6 +1,30 @@
 # 1 ROPS Booster Club
 ## Purpose
 ## User Stories
+### Navbar 
+    * Should have routes to Patches, Treasury, and a Home button
+### Homepage
+    * Features upcoming events, current booster club chair members, and booster club yearly/monthly toDos
+    * Upcoming events should link to details page for event
+### Events Page
+    * Shows the details of events: title, date of event and purpose
+    * Has a text box to increase the income earned for event
+    * Has an option to change the date of event
+    * Has the option to add members to the committee
+    * Has the option to view the current committee
+    * Has the option to view receipts of all transactions made for event
+### Patches Page
+    * Have all of the current patches as clickable links
+    * Have an option to create new patch order
+### Individual Patches Page
+    * Shows profits from patch, name, and pre-orders
+    * Give the option to add members to pre-order
+    * Give the option to add re-order information
+    * Give the option to update sales information
+### Treasury Page
+    * Give a balance
+    * Show income from patches and events
+    * Show receipts for patch
 ## Learning Tool
 1. npx create-react-app (app name)
 2. Install router so you can enhance the navigation abilities of your app: npm install react-router-dom
@@ -8,6 +32,17 @@
     * npx cypress open will populate a cypress folder with tests and configuration files.
     * make sure you add the following to cypress/support/index.js: import 'cypress-jest-adapter';
     * make sure you add the following to cypress/support/commands.js: import '@testing-library/cypress/add-commands';
+    * for jest npm install --save-dev @babel/plugin-syntax-jsx @babel/preset-env @babel/preset-react
+        * set up a config directory with a CSSStub.js file containing a module.exports of an empty object
+        * touch a .babelrc and jest.config.js and input 
+        {
+            "presets": ["@babel/preset-env", "@babel/preset-react"]
+        }
+        module.exports = {
+            moduleNameMapper: {
+            '\\.(css|less)$': '<rootDir>/config/CSSStub.js'
+            }
+        };
 4. For styling install the following: npm install @material-ui/core @material-ui/icons create-react-class
 
 # Getting Started with Create React App
