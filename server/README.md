@@ -33,7 +33,7 @@ With a database, the 1 ROPS booster club will be able to keep track of income an
 This project will also act as a good learning device, providing the steps necessary to create a full stack app
 1. npm init -y
 2. npm install express pg knex
-3. knex init
+3. npx knex init
 4. npm install jest supertest --save-dev
 5. npm install cors morgan nodemon --save
 6. make sure to touch an app.js and update JSON to include proper start and test scripts **start script:** "start": "nodemon app.js" **test script:** "test": "NODE_ENV:development jest"
