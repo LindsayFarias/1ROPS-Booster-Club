@@ -24,6 +24,7 @@ With a database, the 1 ROPS booster club will be able to keep track of income an
 * PATCH /1rops/preorder/{pre-orderId}: will allow you to update whether or not patches have been picked up or update the desired amount of patches.
 * POST /1rops: will let you post new events, this route will also update treasury.
 * POST /1rops/{event}: will allow you to post new receipts for events with reason, expenditures, and associated_member parameters.
+* POST /1rops/committee/{eventId}: will allow you to add new members to event committee inputting {name: id}
 * POST /1rops/members: will allow you to register new member with name and position parameters.
 * POST /1rops/patches: will allow you to add new patch orders and receipts for orders.
 * POST /1rops/preorder: will allow you to add a new pre-order into the system.

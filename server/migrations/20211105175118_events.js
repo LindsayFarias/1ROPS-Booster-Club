@@ -3,7 +3,7 @@ exports.up = function(knex) {
   return knex.schema.createTable('events', table => {
       table.increments('id');
       table.text('title');
-      table.date('date');
+      table.datetime('date', options={useTz: true});
       table.text('about');
       table.integer('income');
   });

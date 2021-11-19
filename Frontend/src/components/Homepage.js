@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { Grid, Paper, Container, Button, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useContext } from 'react';
 import { AppContext } from '../context/CreateAppContext';
 

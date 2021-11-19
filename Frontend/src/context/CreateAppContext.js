@@ -4,6 +4,8 @@ import { Paper } from '@mui/material';
 
 export const AppContext = createContext(null);
 
+const baseURL = 'http://localhost:3001'
+
 const AppProvider = ({children}) => {
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -13,8 +15,33 @@ const AppProvider = ({children}) => {
     color: theme.palette.text.secondary,
   }));
 
+  const post = (url, input) => {
+    fetch(baseURL + url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(input)
+    });
+  };
+
+  const patch = (url, input) => {
+    fetch(baseURL + url, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(input)
+    });
+  };
+
+  const deletion = (url) => {
+    fetch(baseURL + url, {
+      method: 'DELETE'
+    });
+  }
+
   const valueObj = {
-    Item
+    Item,
+    post,
+    patch,
+    deletion
   }
 
   return(

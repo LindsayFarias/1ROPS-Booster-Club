@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(
     cors({
         origin: '*',
-        methods: "GET"
+        methods: 'GET, POST, PATCH, DELETE'
     })
 );
 
@@ -56,7 +56,7 @@ app.get('/1rops/receipts', async (req, res) => {
 //members routes to list members, establish new members, change a members position, and delete members
 app.get('/1rops/members', async (req, res) => {
     let response = await knex
-    .select('name', 'position')
+    .select('*')
     .from('members');
     
     res.status(200).send(response);
@@ -151,7 +151,7 @@ app.get('/1rops/:event', async (req, res) => {
     
     //search for the committee members 
     const committee = await knex
-    .select('name')
+    .select('name', 'id')
     .from('members AS m')
     .where('ec.event', eventId)
     .innerJoin('event-committee AS ec', 'm.id', '=', 'ec.member')
@@ -160,8 +160,8 @@ app.get('/1rops/:event', async (req, res) => {
     const receipts = await knex
     .select('*')
     .from('receipts as r')
-    .where('re.receipt', eventId)
-    .innerJoin('receipt_event AS re', 're.event', '=', 'r.id')
+    .where('re.event', eventId)
+    .innerJoin('receipt_event AS re', 're.receipt', '=', 'r.id')
     
     //what is the selected event
     const event = await knex
@@ -386,13 +386,7 @@ app.post('/1rops/preorder/:patchId', async (req, res) => {
 
 app.post('/1rops/committee/:eventId', async (req, res) => {
     let eventId = parseInt(req.params.eventId, 10);
-    let newMember = req.body.name;
-
-    let memberId = await knex('members')
-        .select('id')
-        .where({name: newMember})
-        .then(data => data);
-    memberId = memberId[0].id;
+    let memberId = req.body.name;
 
     await knex('event-committee')
         .insert({event: eventId, member: memberId})
@@ -439,12 +433,14 @@ app.post('/1rops/:event', async (req, res) => {
     res.send('Receipt successfully uploaded!');
 });
 
-app.delete('/1rops/committee/:memberId', async (req, res) => {
+app.delete('/1rops/committee/:eventId/:memberId', async (req, res) => {
+    let eventId = parseInt(req.params.eventId, 10);
     let memberId = parseInt(req.params.memberId, 10);
 
     await knex('event-committee')
         .delete('*')
         .where({member: memberId})
+        .andWhere({event: eventId})
         .then((data) => data);
 
     res.status(200)
@@ -458,6 +454,11 @@ app.delete('/1rops/members/:memberId', async (req, res) => {
         .where({id: memberId})
         .then((data) => data);
     
+    await knex('event-committee')
+        .delete('*')
+        .where({member: memberId})
+        .then((data) => data);
+
     res.status(200);
 });
 

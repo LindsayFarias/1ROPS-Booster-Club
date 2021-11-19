@@ -17,7 +17,7 @@ function App() {
   const [events, setEvents] = useState(null);
   const [members, setMembers] = useState(null);
   const [details, setDetails] = useState(null);
-  
+  const [netIncome, setNetIncome] = useState(null);
 
   const eventGetter = async () => {
   const data = await apiCall('/1rops')
@@ -32,16 +32,21 @@ function App() {
 
   async function eventDetails(id) {
     let eventId = '/1rops/' + id;
-    console.log(eventId)
     let data = await apiCall(eventId);
     console.log(data)
     setDetails(data);
   }
 
+  async function eventNetIncome(id) {
+    let eventId = '/1rops/event/' + id;
+    let data = await apiCall(eventId);
+    setNetIncome(data);
+  }
+
   return (
     <Routes>
       <Route exact path='/' element={<Homepage getEvents={eventGetter} events={events} getMembers={getMembers} members={members}/>}/>
-      <Route path={`/:eventId`} element={<Eventspage eventGetter={eventDetails} details={details}/>}/>
+      <Route path={`/:eventId`} element={<Eventspage memberGetter={getMembers} members={members} eventGetter={eventDetails} details={details} netIncome={netIncome} netIncomeGetter={eventNetIncome}/>}/>
     </Routes>
   );
 }

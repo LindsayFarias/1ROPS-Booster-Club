@@ -6,6 +6,7 @@
 ### Homepage
     * Features upcoming events, current booster club chair members, and booster club yearly/monthly toDos
     * Upcoming events should link to details page for event
+    * Allows the creation of a new event
 ### Events Page
     * Shows the details of events: title, date of event and purpose
     * Has a text box to increase the income earned for event
@@ -32,18 +33,21 @@
     * npx cypress open will populate a cypress folder with tests and configuration files.
     * make sure you add the following to cypress/support/index.js: import 'cypress-jest-adapter';
     * make sure you add the following to cypress/support/commands.js: import '@testing-library/cypress/add-commands';
-    * for jest npm install --save-dev @babel/plugin-syntax-jsx @babel/preset-env @babel/preset-react
+    * for jest npm install --save-dev @babel/plugin-syntax-jsx @babel/preset-env @babel/preset-react @babel/plugin-transform-runtime --save @babel/runtime
         * set up a config directory with a CSSStub.js file containing a module.exports of an empty object
         * touch a .babelrc and jest.config.js and input 
         {
             "presets": ["@babel/preset-env", "@babel/preset-react"]
+            "plugins": [
+                ["@babel/transform-runtime"]
+            ]
         }
         module.exports = {
             moduleNameMapper: {
             '\\.(css|less)$': '<rootDir>/config/CSSStub.js'
             }
         };
-4. For styling install the following: npm install @material-ui/core @material-ui/icons create-react-class
+4. For styling install the following: npm install @material-ui/core @material-ui/icons create-react-class @mui/lab luxon @date-io/luxon
 
 # Getting Started with Create React App
 

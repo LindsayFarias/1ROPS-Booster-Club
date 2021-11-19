@@ -1,64 +1,109 @@
-import { List, ListItem, ListItemText, Paper, Button, Grid } from '@mui/material';
+import { List, ListItem, ListItemText, Paper, Button, Grid, Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { AppContext } from '../context/CreateAppContext';
+import ReceiptButton from './ReceiptButton';
+import IncomeButton from './IncomeButton';
+import DateButton from './DateButton';
+import AddMemberButton from './AddMemberButton';
 
-function Eventspage( { eventGetter, details } ) {
-  const { Item } = useContext(AppContext);
+function Eventspage( { members, eventGetter, details, netIncome, netIncomeGetter, memberGetter } ) {
+  const { Item, deletion } = useContext(AppContext);
   let committee, event, receipts;
   const params = useParams();
   const eventId = params.eventId;
 
+  const [receiptOpener, setReceiptOpen] = useState(false);
+  const [incomeOpener, setIncomeOpen] = useState(false);
+  const [dateOpener, setDateOpen] = useState(false);
+  const [addOpener, setAddOpen] = useState(false);
+
+  const receiptOpen = () => setReceiptOpen(true);
+  const receiptClose = () => setReceiptOpen(false);
+  const incomeOpen = () => setIncomeOpen(true);
+  const incomeClose = () => setIncomeOpen(false);
+  const dateOpen = () => setDateOpen(true);
+  const dateClose = () => setDateOpen(false);
+  const addOpen = () => setAddOpen(true);
+  const addClose = () => setAddOpen(false);
+
   useEffect( () => {
     eventGetter(eventId);
+    netIncomeGetter(eventId);
+    memberGetter();
   }, []);
 
-  if (details !== null) {
+  useEffect(() => {
+    console.log(incomeOpener);
+    console.log(dateOpener);
+    eventGetter(eventId);
+    netIncomeGetter(eventId);
+  }, [receiptOpener, incomeOpener, dateOpener, addOpener])
+
+  //organize contents of page: event details, committee, and current receipts
+  if (details !== null && netIncome !== null && members !== null) {
     committee = <List sx={{ bgcolor: 'background.paper' }}>
         <h3>Committee: </h3>
         {details.committee.map(member => {
             return (
                 <ListItem>
                     <ListItemText primary={member.name}/>
-                    <Button variant='outlined'>Remove</Button>
+                    <Button onClick={()=> deletion(`/1rops/committee/${eventId}/${member.id}`)} variant="outlined">Delete</Button>
                 </ListItem>
             )
         })}
         <ListItem>
-            <Button variant='outlined'>Add</Button>
+            <AddMemberButton details={details} eventId={eventId} members={members} setOpen={addOpen} setClose={addClose} open={addOpener} variant='outlined'>Add</AddMemberButton>
         </ListItem>
     </List>
 
-    event = <Paper elevation={3} style={{textAlign: 'center'}}>
+    let expenditure = 0;
+    details.receipts.forEach(receipt => expenditure += receipt.expenditures)
+    
+    event = <Paper elevation={3} style={{textAlign: 'center', padding: 3}}>
         <h3>{details.event[0].title}</h3>
         <p>{details.event[0].about}</p>
-        <h4>Income: ${details.event[0].income}</h4>
+        <p>Date of Event: {details.event[0].date}</p>
+        <p>Income: ${details.event[0].income}</p>
+        <p>Expenditures: ${expenditure}</p>
+        <p>Net Income: ${netIncome.total}</p>
+        <Box display='flex'>
+          <IncomeButton eventId={eventId} open={incomeOpener} incomeOpen={incomeOpen} incomeClose={incomeClose} />
+          <DateButton eventId={eventId} open={dateOpener} dateOpen={dateOpen} dateClose={dateClose} currentDate={details.event[0].date} />
+        </Box>
     </Paper>
 
     receipts = details.receipts.length > 0 ? 
-      <Item>
-        <h4>{details.receipts[0].reason}</h4>
-        <h5>Date: {details.receipts[0].date}</h5>
-        <h5>Expenditure: ${details.receipts[0].expenditures}</h5>
-        <h5>Associated Member: {details.receipts[0].associated_member}</h5>
-      </Item> 
+      details.receipts.map(receipt => {
+        return (
+          <Grid item xs={3}>
+            <Item>
+              <h4>{receipt.reason}</h4>
+              <h5>Date: {receipt.date}</h5>
+              <h5>Expenditure: ${receipt.expenditures}</h5>
+              <h5>Associated Member: {receipt.associated_member}</h5>
+          </Item>
+        </Grid>
+        )})
       : <h3>No Receipts</h3>
   }
 
   return(
-    <Grid container component='span' sx={{p: 2}}>
-      <Grid item xs={8}>
-      {event}
-      </Grid>
-      <Grid item xs={3}>
-        {committee}
-      </Grid>
-      <Grid item xs={4}>
-      </Grid>
-      <Grid item xs={4}>
+    <Box display="flex" flexDirection="row" padding={1}>
+      <Grid container component='span' spacing={2} sx={{p: 1}} style={{width: '60%'}}>
+        <Grid item xs={12}>
+          {event}
+        </Grid>
+        <Grid item xs={2}><h3>Receipts:</h3></Grid>
+        <ReceiptButton eventId={eventId} receiptOpen={receiptOpen} receiptClose={receiptClose} open={receiptOpener} />
         {receipts}
       </Grid>
-    </Grid>
+      <Grid container style={{width: '40%'}}>
+        <Grid item xs={12}>
+          {committee}
+        </Grid>
+      </Grid>
+    </Box>
   )
 };
 
