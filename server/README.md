@@ -29,6 +29,8 @@ With a database, the 1 ROPS booster club will be able to keep track of income an
 * POST /1rops/patches: will allow you to add new patch orders and receipts for orders.
 * POST /1rops/preorder: will allow you to add a new pre-order into the system.
 * DELETE /1rops/members/{memberId}: will allow you to delete member from booster club.
+* DELETE /1rops/committee/{eventId}/{memberId}: will allow you to delete members from a committee
+* DELETE /1rops/{eventId}: delete an event
 
 ## Leaning Tool
 This project will also act as a good learning device, providing the steps necessary to create a full stack app

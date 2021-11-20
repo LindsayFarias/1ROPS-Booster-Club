@@ -462,5 +462,30 @@ app.delete('/1rops/members/:memberId', async (req, res) => {
     res.status(200);
 });
 
+app.delete('/1rops/:eventId', async (req, res) => {
+    let eventId = parseInt(req.params.eventId, 10);
+    
+    await knex('events')
+        .delete('*')
+        .where({id: eventId})
+        .then((data) => data);
+    
+    let result = await knex('event-committee')
+        .select('*')
+        .where({event: eventId})
+        .then((data) => data);
+
+    if(result === undefined) {
+        res.status(200)
+    } else {
+        await knex('event-committee')
+          .delete('*')
+          .where({event: eventId})
+          .then(data => data)
+        
+        res.status(200);
+    }
+});
+
 //export app and knex to run server/allow for use in testing.
 module.exports = {app, knex};

@@ -1,6 +1,10 @@
 import './App.css';
-import Homepage from './components/Homepage.js';
-import Eventspage from './components/Eventspage.js';
+import Homepage from './components/pages/Homepage.js';
+import Eventspage from './components/pages/Eventspage.js';
+import Treasurypage from './components/pages/Treasurypage.js';
+import Patchpage from './components/pages/Patchpage.js';
+import Memberpage from './components/pages/Memberpage.js';
+import Navbar from './components/Navbar.js';
 import { useState, useEffect } from 'react'
 import { Route, Routes, Link } from 'react-router-dom';
 
@@ -18,6 +22,9 @@ function App() {
   const [members, setMembers] = useState(null);
   const [details, setDetails] = useState(null);
   const [netIncome, setNetIncome] = useState(null);
+  const [funds, setFunds] = useState(null);
+  const [receipts, setReceipts] = useState(null);
+  const [patches, setPatches] = useState(null);
 
   const eventGetter = async () => {
   const data = await apiCall('/1rops')
@@ -43,11 +50,32 @@ function App() {
     setNetIncome(data);
   }
 
+  async function getFunds() {
+    let money = await apiCall('/1rops/money')
+    setFunds(money);
+  }
+
+  async function getReceipts() {
+    let receipts = await apiCall('/1rops/receipts')
+    setReceipts(receipts);
+  }
+
+  async function getPatches() {
+    let patches = await apiCall('/1rops/patches')
+    setPatches(patches);
+  }
+
   return (
-    <Routes>
-      <Route exact path='/' element={<Homepage getEvents={eventGetter} events={events} getMembers={getMembers} members={members}/>}/>
-      <Route path={`/:eventId`} element={<Eventspage memberGetter={getMembers} members={members} eventGetter={eventDetails} details={details} netIncome={netIncome} netIncomeGetter={eventNetIncome}/>}/>
-    </Routes>
+    <div className='App'>
+      <Navbar/>
+      <Routes>
+        <Route exact path='/' element={<Homepage getEvents={eventGetter} events={events} getMembers={getMembers} members={members}/>}/>
+        <Route path={`/:eventId`} element={<Eventspage memberGetter={getMembers} members={members} eventGetter={eventDetails} details={details} netIncome={netIncome} netIncomeGetter={eventNetIncome} setMembers={setMembers}/>}/>
+        <Route path="/patches" element={<Patchpage getPatches={getPatches} patches={patches} />}/>
+        <Route path="/treasury" element={<Treasurypage money={funds} getMoney={getFunds} receipts={receipts} getReceipts={getReceipts}/>}/>
+        <Route path="/members" element={<Memberpage members={members} getMembers={getMembers} setMembers={setMembers}/>}/>
+      </Routes>
+    </div>
   );
 }
 

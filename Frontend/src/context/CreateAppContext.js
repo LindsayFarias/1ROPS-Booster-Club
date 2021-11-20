@@ -1,6 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext } from 'react';
 import { styled } from '@mui/material/styles';
-import { Paper } from '@mui/material';
+import { Paper, Toolbar, IconButton, Typography, createTheme } from '@mui/material';
 
 export const AppContext = createContext(null);
 
@@ -36,12 +36,22 @@ const AppProvider = ({children}) => {
       method: 'DELETE'
     });
   }
+  
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#1976d2',
+      },
+    },
+  });
 
   const valueObj = {
     Item,
     post,
     patch,
-    deletion
+    deletion,
+    darkTheme
   }
 
   return(
