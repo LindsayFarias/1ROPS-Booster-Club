@@ -25,7 +25,8 @@
 ### Treasury Page
     * Give a balance
     * Show income from patches and events
-    * Show receipts for patch
+    * Show receipts
+    
 ## Learning Tool
 1. npx create-react-app (app name)
 2. Install router so you can enhance the navigation abilities of your app: npm install react-router-dom

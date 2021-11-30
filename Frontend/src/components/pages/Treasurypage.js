@@ -20,7 +20,10 @@ const Treasurypage = ({money, getMoney, receipts, getReceipts}) => {
   }
 
   let expenditures = 0;
-  receipts.forEach(receipt => expenditures += receipt.expenditures)
+  if(receipts !== null) {
+    receipts.forEach(receipt => expenditures += receipt.expenditures)
+  }
+  
   expenditures = <h3>Expenditures: ${expenditures}</h3>
   
   let receiptList;

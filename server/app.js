@@ -112,7 +112,7 @@ app.get('/1rops/preorder/:patchId', async (req, res) => {
         .then(data => data);
     patchName = patchName[0].name;
     let result = await knex
-        .select('name', 'amount', 'notes', 'picked_up')
+        .select('*')
         .from('pre_orders as po')
         .where('pp.patch', patchId)
         .innerJoin('patch_preOrder as pp', 'pp.preOrder', '=', 'po.id')
@@ -204,7 +204,8 @@ app.patch('/1rops/reorder/:patchId', async (req, res) => {
     const newReceipt = {
         reason: updateInfo.reason,
         associated_member: updateInfo.associated_member,
-        expenditures: updateInfo.expenditures
+        expenditures: updateInfo.expenditures,
+        date: updateInfo.date_ordered
     };
 
     await knex('patches')
@@ -337,7 +338,8 @@ app.post('/1rops/patches', async (req, res) => {
     const newReceipt = {
         reason: incomingInfo.reason,
         associated_member: incomingInfo.associated_member,
-        expenditures: incomingInfo.expenditures
+        expenditures: incomingInfo.expenditures,
+        date: incomingInfo.date_ordered
     };
 
     await knex('receipts')
@@ -364,6 +366,10 @@ app.post('/1rops/patches', async (req, res) => {
         .insert({receipt: receiptId, patch: patchId})
         .then((data) => data);
 
+    await knex('treasury')
+        .increment('income', incomingInfo.income)
+        .then((data) => data);
+        
     res.status(201).send('Patch has been successfully added to database')
 });
 

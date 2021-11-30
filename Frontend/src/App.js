@@ -5,6 +5,7 @@ import Treasurypage from './components/pages/Treasurypage.js';
 import Patchpage from './components/pages/Patchpage.js';
 import Memberpage from './components/pages/Memberpage.js';
 import Navbar from './components/Navbar.js';
+import SinglePatchpage from './components/pages/SinglePatchpage';
 import { useState, useEffect } from 'react'
 import { Route, Routes, Link } from 'react-router-dom';
 
@@ -25,6 +26,8 @@ function App() {
   const [funds, setFunds] = useState(null);
   const [receipts, setReceipts] = useState(null);
   const [patches, setPatches] = useState(null);
+  const [patch, setPatch] = useState(null);
+  const [patchNet, setPatchNet] = useState(null);
 
   const eventGetter = async () => {
   const data = await apiCall('/1rops')
@@ -65,6 +68,15 @@ function App() {
     setPatches(patches);
   }
 
+  async function getPatch(id) {
+    let preOrders = await apiCall(`/1rops/preorder/${id}`)
+    setPatch(preOrders);
+  }
+
+  async function getPatchNet(id) {
+    let netIncome = await apiCall(`/1rops/patches/${id}`)
+    setPatchNet(netIncome);
+  }
   return (
     <div className='App'>
       <Navbar/>
@@ -72,6 +84,7 @@ function App() {
         <Route exact path='/' element={<Homepage getEvents={eventGetter} events={events} getMembers={getMembers} members={members}/>}/>
         <Route path={`/:eventId`} element={<Eventspage memberGetter={getMembers} members={members} eventGetter={eventDetails} details={details} netIncome={netIncome} netIncomeGetter={eventNetIncome} setMembers={setMembers}/>}/>
         <Route path="/patches" element={<Patchpage getPatches={getPatches} patches={patches} />}/>
+        <Route path={`/patches/:patchId`} element={<SinglePatchpage getPatches={getPatches} getNet={getPatchNet} netIncome={patchNet} preOrder={patch} patches={patches} getPatch={getPatch}/>} />
         <Route path="/treasury" element={<Treasurypage money={funds} getMoney={getFunds} receipts={receipts} getReceipts={getReceipts}/>}/>
         <Route path="/members" element={<Memberpage members={members} getMembers={getMembers} setMembers={setMembers}/>}/>
       </Routes>

@@ -68,7 +68,7 @@ const AddMemberButton = ({ setUpdate, update, members, setOpen, setClose, open, 
 
   return(
     <Grid item xs={10}>
-      <Button onClick={setOpen}>Add</Button>
+      <Button variant='outlined' onClick={setOpen}>Add</Button>
       <Modal
         open={open}
         onClose={setClose}

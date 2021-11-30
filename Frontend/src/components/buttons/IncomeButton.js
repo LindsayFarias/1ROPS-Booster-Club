@@ -35,7 +35,7 @@ function IncomeButton({ eventId, incomeOpen, open, incomeClose}) {
 
   return (
     <Grid item xs={10}>
-      <Button onClick={incomeOpen}>Update Income</Button>
+      <Button variant='outlined' onClick={incomeOpen}>Update Income</Button>
       <Modal
         open={open}
         onClose={incomeClose}

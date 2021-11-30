@@ -43,7 +43,7 @@ function ReceiptButton({ eventId, receiptOpen, open, receiptClose}) {
 
   return (
     <Grid item xs={10}>
-      <Button onClick={receiptOpen}>Add Receipt</Button>
+      <Button variant='outlined' onClick={receiptOpen}>Add Receipt</Button>
       <Modal
         open={open}
         onClose={receiptClose}

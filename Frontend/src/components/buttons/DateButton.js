@@ -16,25 +16,25 @@ const style = {
     p: 4,
   };
 
-function DateButton({ eventId, dateOpen, open, dateClose, currentDate}) {
+function DateButton({ eventId, dateOpen, open, dateClose}) {
   const { patch } = useContext(AppContext);
-  const [value, setValue] = useState(currentDate);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    console.log('date', value);
-  }, [value]);
+    console.log('date', date);
+  }, [date]);
 
   const handleChange = (newValue) => {
-    setValue(newValue)
+    setDate(newValue)
   }
 
   const submitPost = () => {
     let update = {
-      date: value,
+      date: date,
     };
     const url = `/1rops/${eventId}`;
     patch(url, update);
-    setValue(value);
+    setDate(new Date());
     dateClose();
   };
 
@@ -55,7 +55,7 @@ function DateButton({ eventId, dateOpen, open, dateClose, currentDate}) {
             <LocalizationProvider dateAdapter={DateAdapter}>
               <DateTimePicker
                 label="DateTime picker"
-                value={value}
+                value={date}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
                 />

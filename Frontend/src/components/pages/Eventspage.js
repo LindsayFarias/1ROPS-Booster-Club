@@ -81,7 +81,7 @@ function Eventspage( { setMembers, members, eventGetter, details, netIncome, net
     receipts = details.receipts.length > 0 ? 
       details.receipts.map(receipt => {
         return (
-          <Grid item xs={3}>
+          <Grid item xs={12} med={6} lg={3.5}>
             <Item>
               <h4>{receipt.reason}</h4>
               <h5>Date: {receipt.date}</h5>
