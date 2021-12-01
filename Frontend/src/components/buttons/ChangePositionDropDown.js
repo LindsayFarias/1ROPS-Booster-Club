@@ -13,8 +13,9 @@ const ChangePositionDropDown= ({ member, setUpdate, update}) => {
   const positions = ['President', 'Vice President', 'Secretary', 'Treasurer', 'Commoner'];
   const dropDown = 
     <FormControl fullWidth>
-      <InputLabel id="positionDropDown">Change Position</InputLabel>
+      <InputLabel color='secondary' id="positionDropDown">Change Position</InputLabel>
       <Select
+        color='secondary'
         labelId="positions"
         id="dropDownMembers"
         value={member.position}

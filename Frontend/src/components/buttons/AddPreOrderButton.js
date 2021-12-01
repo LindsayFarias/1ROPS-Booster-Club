@@ -49,21 +49,24 @@ const AddPreOrderButton = ({ handleModal, open, id, getPatch, render, reRender }
         <FormControl>
           <FormControlLabel
             label={`Name: `}
+            color='secondary'
             value={name} 
             labelPlacement='start'
             control={
-              <TextField sx={{ m: 1, width: '25ch' }} label='Name' variant="outlined" onChange={(event) => setName(event.target.value)}/>
+              <TextField sx={{ m: 1, width: '25ch' }} color='secondary' label='Name' variant="outlined" onChange={(event) => setName(event.target.value)}/>
             } />
         </FormControl>
         <FormControl>
           <FormControlLabel
             label={`Number of Patches: `}
             value={amount} 
+            color='secondary'
             labelPlacement='start'
             control={
               <TextField 
                 sx={{ m: 1, width: '25ch' }} 
                 label='Number' variant="outlined" 
+                color='secondary'
                 onChange={(event) => setAmount(event.target.value)}/>
               } />
         </FormControl>
@@ -71,18 +74,19 @@ const AddPreOrderButton = ({ handleModal, open, id, getPatch, render, reRender }
           <FormControlLabel
             label={`Notes: `}
             value={notes} 
+            color='secondary'
             labelPlacement='start'
             control={
-              <TextField multiline={true} sx={{ m: 1, width: '50ch' }} label='Note' variant="outlined" onChange={(event) => setNote(event.target.value)}/>
+              <TextField multiline={true} color='secondary' sx={{ m: 1, width: '50ch' }} label='Note' variant="outlined" onChange={(event) => setNote(event.target.value)}/>
             } />
         </FormControl>
-        <Button onClick={()=> submitPreOrder()} style={{float: 'right'}}variant='outlined'>Add</Button>
+        <Button onClick={()=> submitPreOrder()} style={{float: 'right'}} color='secondary' variant='outlined'>Add</Button>
         </form>
       </Box>
 
     return(
         <Grid item xs={10}>
-        <Button variant='outlined' onClick={handleModal}>Add Pre-Order</Button>
+        <Button color='secondary' variant='outlined' onClick={handleModal}>Add Pre-Order</Button>
         <Modal
           open={open}
           onClose={handleModal}

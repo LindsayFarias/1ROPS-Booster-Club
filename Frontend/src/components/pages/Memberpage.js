@@ -38,7 +38,7 @@ const Memberpage = ({members, setMembers, getMembers}) => {
             <h2>{member.name}</h2>
             <h2>{member.position}</h2>
             <ChangePositionDropDown setUpdate={setUpdate} update={update} member={member}/> <br/>
-            <Button onClick={()=> handleDeletion(member.id)} variant="outlined">Delete</Button>
+            <Button color='secondary' onClick={()=> handleDeletion(member.id)} variant="outlined">Delete</Button>
           </Item>
         </Grid>
       )

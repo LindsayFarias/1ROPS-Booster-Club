@@ -38,11 +38,12 @@ const AddNewMemberButton = ({open, setOpen, setClose, members, setMembers, setUp
     const positions = ['President', 'Vice President', 'Secretary', 'Treasurer', 'Commoner'];
     const dropDown = 
     <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Position</InputLabel>
+      <InputLabel color='secondary' id="demo-simple-select-label">Position</InputLabel>
       <Select
         labelId="positions"
         id="dropDownMembers"
         value={position}
+        color='secondary'
         label="Positions"
         onChange={handleDropDown}
       >
@@ -56,7 +57,7 @@ const AddNewMemberButton = ({open, setOpen, setClose, members, setMembers, setUp
 
     return(
       <Grid item xs={12}>
-        <Button onClick={setOpen}>Add New Member</Button>
+        <Button variant='outlined' color='secondary' onClick={setOpen}>Add New Member</Button>
         <Modal
           open={open}
           onClose={setClose}
@@ -69,12 +70,12 @@ const AddNewMemberButton = ({open, setOpen, setClose, members, setMembers, setUp
             </Typography>
             <form id="modal-modal-description">
             <Typography sx={{p: 1}}>Name:
-              <TextField sx={{mx: 2}}required id="outlined-required" variant="outlined" label='name' onChange={(event) => setName(event.target.value)}/> 
+              <TextField color='secondary' sx={{mx: 2}}required id="outlined-required" variant="outlined" label='name' onChange={(event) => setName(event.target.value)}/> 
             </Typography>
             <Typography sx={{p: 1}}>Associated Member: 
               {dropDown}
             </Typography>
-              <Button onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Add</Button>
+              <Button color='secondary' onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Add</Button>
             </form>
           </Box>
         </Modal>

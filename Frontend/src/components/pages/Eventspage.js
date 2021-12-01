@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemText, Paper, Button, Grid, Box } from '@mui/material';
+import { List, ListItem, ListItemText, Paper, Button, Grid, Box, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useEffect, useContext, useState } from 'react';
 import { AppContext } from '../../context/CreateAppContext';
@@ -48,12 +48,12 @@ function Eventspage( { setMembers, members, eventGetter, details, netIncome, net
   //organize contents of page: event details, committee, and current receipts
   if (details !== null && netIncome !== null && members !== null) {
     committee = <List sx={{ bgcolor: 'background.paper' }}>
-        <h3>Committee: </h3>
+        <Typography variant='h5'>Committee: </Typography>
         {details.committee.map(member => {
             return (
                 <ListItem>
                     <ListItemText primary={member.name}/>
-                    <Button onClick={()=> handleDeletion(member.id)} variant="outlined">Delete</Button>
+                    <Button color='secondary' onClick={()=> handleDeletion(member.id)} variant="outlined">Delete</Button>
                 </ListItem>
             )
         })}
@@ -66,7 +66,7 @@ function Eventspage( { setMembers, members, eventGetter, details, netIncome, net
     details.receipts.forEach(receipt => expenditure += receipt.expenditures)
     
     event = <Paper elevation={3} style={{textAlign: 'center', padding: 3}}>
-        <h3>{details.event[0].title}</h3>
+        <Typography variant='h5'>{details.event[0].title}</Typography>
         <p>{details.event[0].about}</p>
         <p>Date of Event: {details.event[0].date}</p>
         <p>Income: ${details.event[0].income}</p>
@@ -99,13 +99,18 @@ function Eventspage( { setMembers, members, eventGetter, details, netIncome, net
         <Grid item xs={12}>
           {event}
         </Grid>
-        <Grid item xs={2}><h3>Receipts:</h3></Grid>
+        <Grid item xs={2}><Typography variant='h5'>Receipts:</Typography></Grid>
         <ReceiptButton eventId={eventId} receiptOpen={receiptOpen} receiptClose={receiptClose} open={receiptOpener} />
         {receipts}
       </Grid>
-      <Grid container style={{width: '40%'}}>
+      <Grid container spacing={1} style={{width: '40%'}}>
         <Grid item xs={12}>
           {committee}
+        </Grid>
+        <Grid item xs={2}>
+          <Typography variant='h5'>
+            ToDos:
+          </Typography>
         </Grid>
       </Grid>
     </Box>

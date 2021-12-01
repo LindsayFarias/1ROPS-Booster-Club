@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { Grid, Container, Button } from '@mui/material';
+import { Grid, Container, Button, Typography } from '@mui/material';
 import { useContext } from 'react';
 import { AppContext } from '../../context/CreateAppContext';
 import AddEventButton from '../buttons/AddEventButton';
@@ -47,10 +47,10 @@ function Homepage({ getEvents, events, getMembers, members }) {
             <Grid container xs={12}>
               <Grid item xs={4}></Grid>
               <Grid item xs={2}>
-                <Link to={`/${event.id}`}><Button color="primary" variant='outlined'>Details</Button></Link>
+                <Link to={`/${event.id}`}><Button color="secondary" variant='outlined'>Details</Button></Link>
               </Grid>
               <Grid item xs={2}>
-                <Button variant="outlined" onClick={() => handleDeletion(event.id)} >Delete</Button>
+                <Button color='secondary' variant="outlined" onClick={() => handleDeletion(event.id)} >Delete</Button>
               </Grid>
               <Grid item xs={4}></Grid>
             </Grid>
@@ -99,20 +99,20 @@ function Homepage({ getEvents, events, getMembers, members }) {
   
   return(
     <Container maxWidth='xlg' className='homepage'>
-      <h1 style={{textAlign: 'center'}}>1 ROPS Booster Club</h1>
+      <Typography variant='h3' style={{textAlign: 'center'}}>1 ROPS Booster Club</Typography>
       <Grid container spacing={2}>
         <Grid item style={{textAlign: 'left', justifyContent: 'center'}} xs={3}>
-          <h3>Booster Club Board:</h3> <br/>
+          <Typography variant='h5'>Booster Club Board:</Typography> <br/>
           {memberResult} <br/>
-          <Link to="/members"><Button variant="outlined">Add</Button></Link>
+          <Link to="/members"><Button color='secondary' variant="outlined">Add</Button></Link>
         </Grid>
         <Grid item style={{textAlign: 'left'}} xs={6}>
-          <h3>Events:</h3> <br/>
+          <Typography variant='h5'>Events:</Typography> <br/>
           {eventResult} <br/>
             <AddEventButton setOpen={eventOpen} setClose={eventClose} open={eventOpener} setUpdate={setUpdate} update={update} />
         </Grid>
         <Grid item style={{textAlign: 'left'}} xs={3}>
-          <h3>ToDos:</h3> <br/>
+          <Typography variant='h5'>ToDos:</Typography> <br/>
         </Grid>
       </Grid>
     </Container>

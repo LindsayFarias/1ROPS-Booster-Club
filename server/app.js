@@ -235,16 +235,18 @@ app.patch('/1rops/:eventId', async (req, res) => {
     let result;
     let eventId = parseInt(req.params.eventId, 10);
     let change = req.body;
-
-    change.income 
-    ? await knex('events').increment('income', change.income)
+    
+    if (eventId !== 0) {
+      change.income 
+      ? await knex('events').increment('income', change.income)
         .where({id: eventId})
         .then((data => data))
-    : await knex('events')
+      : await knex('events')
         .update({
         date: change.date
         })
         .where({id: eventId});
+    };
 
     if(change.income){
         await knex('treasury')
@@ -285,7 +287,8 @@ app.patch('/1rops/preorder/:preOrderId', async (req, res) => {
     
     console.log(change.amount);
     change.amount 
-    ? await knex('pre_orders').increment('amount', change.amount)
+    ? await knex('pre_orders')
+        .update('amount', change.amount)
         .where({id: preOrderId})
         .then((data => data))
     : await knex('pre_orders')
@@ -415,7 +418,8 @@ app.post('/1rops/:event', async (req, res) => {
     if(
         newReceipt.reason &&
         newReceipt.expenditures &&
-        newReceipt.associated_member
+        newReceipt.associated_member &&
+        newReceipt.date
     ){
         knex('receipts')
             .insert(newReceipt)

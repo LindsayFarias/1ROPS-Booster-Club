@@ -44,7 +44,7 @@ const UpdatePatchInfoButton = ({ handleUpdate, open, id, render, reRender }) => 
 
   return(
     <div>
-    <Button variant='outlined' onClick={handleUpdate}>Update</Button>
+    <Button color='secondary' variant='outlined' onClick={handleUpdate}>Update</Button>
     <Modal
       open={open}
       onClose={handleUpdate}
@@ -58,22 +58,23 @@ const UpdatePatchInfoButton = ({ handleUpdate, open, id, render, reRender }) => 
             <FormControl >
               <FormControlLabel 
                 sx={{ width: '30ch' }} 
+                color='secondary'
                 variant="outlined"
                 value={number}
                 label="Patches Sold:"
                 labelPlacement='start'
-                control={<TextField id="Number-Ordered" label="Number"/>} 
+                control={<TextField color='secondary' id="Number-Ordered" label="Number"/>} 
                 onChange={(event) => setNumber(event.target.value)}
               />
             </FormControl>
           <Typography sx={{p: 1}}>Price/Patch:
-            <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined" value={price}>
-              <InputLabel htmlFor="price_patch">Amount</InputLabel> 
-                <OutlinedInput id="price_patch" startAdornment={<InputAdornment position="start">$</InputAdornment>} label="Amount" 
+            <FormControl sx={{ m: 1, width: '25ch' }} color='secondary' variant="outlined" value={price}>
+              <InputLabel color='secondary' htmlFor="price_patch">Amount</InputLabel> 
+                <OutlinedInput color='secondary' id="price_patch" startAdornment={<InputAdornment position="start">$</InputAdornment>} label="Amount" 
                 onChange={(event) => setPrice(event.target.value)}/>
             </FormControl>
           </Typography>
-          <Button onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Update Income</Button>
+          <Button color='secondary' onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Update Income</Button>
         </form>
       </Box>
     </Modal>

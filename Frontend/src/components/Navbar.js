@@ -10,9 +10,9 @@ const Navbar = () => {
     <ThemeProvider theme={darkTheme}>
       <AppBar position="static" color="primary">
         <ButtonGroup variant='outlined' color='secondary'>
-        <Link to='/'><Button><HouseIcon /></Button></Link>
-        <Link to='/patches'><Button>Patches</Button></Link>
-        <Link to='/treasury'><Button>Treasury</Button></Link>
+        <Link to='/'><Button color='secondary'><HouseIcon /></Button></Link>
+        <Link to='/patches'><Button color='secondary'>Patches</Button></Link>
+        <Link to='/treasury'><Button color='secondary'>Treasury</Button></Link>
         </ButtonGroup>
       </AppBar>
     </ThemeProvider>

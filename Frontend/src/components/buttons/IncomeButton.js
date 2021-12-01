@@ -35,7 +35,7 @@ function IncomeButton({ eventId, incomeOpen, open, incomeClose}) {
 
   return (
     <Grid item xs={10}>
-      <Button variant='outlined' onClick={incomeOpen}>Update Income</Button>
+      <Button color='secondary' variant='outlined' onClick={incomeOpen}>Update Income</Button>
       <Modal
         open={open}
         onClose={incomeClose}
@@ -48,13 +48,13 @@ function IncomeButton({ eventId, incomeOpen, open, incomeClose}) {
           </Typography>
           <form id="modal-modal-description">
             <Typography sx={{p: 1}}>Income:
-              <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel> 
-                  <OutlinedInput id="outlined-adornment-amount" startAdornment={<InputAdornment position="start">$</InputAdornment>} label="Amount" 
+              <FormControl color='secondary' sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <InputLabel color='secondary' htmlFor="outlined-adornment-amount">Amount</InputLabel> 
+                  <OutlinedInput color='secondary' id="outlined-adornment-amount" startAdornment={<InputAdornment position="start">$</InputAdornment>} label="Amount" 
                   onChange={(event) => setIncome(event.target.value)}/>
               </FormControl>
               </Typography>
-            <Button onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Update Income</Button>
+            <Button color='secondary' onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Update Income</Button>
           </form>
         </Box>
       </Modal>

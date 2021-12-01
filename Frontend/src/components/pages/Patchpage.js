@@ -66,7 +66,7 @@ const Patchpage = ({patches, getPatches}) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Link to={`/patches/${patch.id}`}><Button variant="outlined" size="small">Details</Button></Link>
+            <Link to={`/patches/${patch.id}`}><Button color='secondary' variant="outlined" size="small">Details</Button></Link>
           </CardActions>
         </Card>
       </Grid>
@@ -81,25 +81,28 @@ const Patchpage = ({patches, getPatches}) => {
       <FormControl>
         <FormControlLabel
           label={`Patch Name: `}
+          color='secondary'
           value={name} 
           labelPlacement='start'
           control={
-            <TextField sx={{ m: 1, width: '25ch' }} label='Name' variant="outlined" onChange={(event) => setName(event.target.value)}/>
+            <TextField sx={{ m: 1, width: '25ch' }} color='secondary' label='Name' variant="outlined" onChange={(event) => setName(event.target.value)}/>
         } />
       </FormControl>
       <FormControl>
         <FormControlLabel
           label={`Date Ordered: `}
           labelPlacement='start'
+          color='secondary'
           control={
-            <LocalizationProvider dateAdapter={DateAdapter}>
+            <LocalizationProvider color='secondary' dateAdapter={DateAdapter}>
               <DatePicker
-                label="Basic example"
+                label="Date"
                 value={date}
+                color='secondary'
                 onChange={(newValue) => {
                 setDate(newValue);
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField color='secondary' {...params} />}
               />
             </LocalizationProvider>
         } />
@@ -108,9 +111,10 @@ const Patchpage = ({patches, getPatches}) => {
         <FormControlLabel
           label={`Number of Patches Ordered: `}
           value={number} 
+          color='secondary'
           labelPlacement='start'
           control={
-            <TextField sx={{ m: 1, width: '25ch' }} label='Number' variant="outlined" onChange={(event) => setNumber(event.target.value)}/>
+            <TextField sx={{ m: 1, width: '25ch' }} color='secondary' label='Number' variant="outlined" onChange={(event) => setNumber(event.target.value)}/>
         } />
       </FormControl>
       <FormControl>
@@ -118,18 +122,21 @@ const Patchpage = ({patches, getPatches}) => {
           label={`Number of Patches Sold: `}
           value={sold} 
           labelPlacement='start'
+          color='secondary'
           control={
-            <TextField sx={{ m: 1, width: '25ch' }} label='Number' variant="outlined" onChange={(event) => setSold(event.target.value)}/>
+            <TextField sx={{ m: 1, width: '25ch' }} color='secondary' label='Number' variant="outlined" onChange={(event) => setSold(event.target.value)}/>
         } />
       </FormControl>
       <FormControl>
         <FormControlLabel
           label={`Cost of Patches: `}
           labelPlacement='start'
+          color='secondary'
           control={
             <TextField 
               sx={{ m: 1, width: '25ch' }}
-              value={amount}  
+              value={amount}
+              color='secondary'  
               id='amount'
               label='Amount'
               InputProps={{
@@ -143,10 +150,12 @@ const Patchpage = ({patches, getPatches}) => {
         <FormControlLabel
           label={`Money Made: `}
           labelPlacement='start'
+          color='secondary'
           control={
             <TextField 
               sx={{ m: 1, width: '25ch' }}
-              value={income} 
+              value={income}
+              color='secondary' 
               id='amount'
               label='Amount'
               InputProps={{
@@ -159,18 +168,19 @@ const Patchpage = ({patches, getPatches}) => {
       <FormControl>
         <FormControlLabel
           label={`POC: `}
+          color='secondary'
           value={member} 
           labelPlacement='start'
           control={
-            <TextField sx={{ m: 1, width: '30ch' }} label='Name' variant="outlined" onChange={(event) => setMember(event.target.value)}/>
+            <TextField sx={{ m: 1, width: '30ch' }} color='secondary' label='Name' variant="outlined" onChange={(event) => setMember(event.target.value)}/>
           } />
       </FormControl>
-      <Button onClick={() => handleSubmit()} variant='outlined'>Submit</Button>
+      <Button color='secondary' onClick={() => handleSubmit()} variant='outlined'>Submit</Button>
     </Item>
 
   return(
     <div>
-      <h1>Patches</h1>
+      <Typography variant='h3'>Patches</Typography> <br/>
       <Box display='flex'>
         <Grid container spacing={1} maxWidth='xlg' style={{width: '70%'}}>
         {patchList}

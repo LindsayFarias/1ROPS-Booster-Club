@@ -52,20 +52,23 @@ const ReOrderPatchesButton = ({ id, render, reRender, handleReOrder, open, getPa
       <FormControl>
         <FormControlLabel
           label={`Patch Name: `}
+          color='secondary'
           value={name} 
           labelPlacement='start'
           control={
-            <TextField sx={{ m: 1, width: '25ch' }} label='Name' variant="outlined" onChange={(event) => setName(event.target.value)}/>
+            <TextField sx={{ m: 1, width: '25ch' }} color='secondary' label='Name' variant="outlined" onChange={(event) => setName(event.target.value)}/>
         } />
       </FormControl>
       <FormControl>
         <FormControlLabel
           label={`Date Re-Ordered: `}
+          color='secondary'
           labelPlacement='start'
           control={
             <LocalizationProvider dateAdapter={DateAdapter}>
               <DatePicker
                 label="re-order date"
+                color='secondary'
                 value={date}
                 onChange={(newValue) => {
                 setDate(newValue);
@@ -78,20 +81,23 @@ const ReOrderPatchesButton = ({ id, render, reRender, handleReOrder, open, getPa
       <FormControl>
         <FormControlLabel
           label={`Number of Patches Ordered: `}
+          color='secondary'
           value={number} 
           labelPlacement='start'
           control={
-            <TextField sx={{ m: 1, width: '25ch' }} label='Number' variant="outlined" onChange={(event) => setNumber(event.target.value)}/>
+            <TextField sx={{ m: 1, width: '25ch' }} color='secondary' label='Number' variant="outlined" onChange={(event) => setNumber(event.target.value)}/>
         } />
       </FormControl>
       <FormControl>
         <FormControlLabel
           label={`Cost of Patches: `}
           labelPlacement='start'
+          color='secondary'
           control={
             <TextField 
               sx={{ m: 1, width: '25ch' }}
               value={amount}  
+              color='secondary'
               id='amount'
               label='Amount'
               InputProps={{
@@ -104,18 +110,19 @@ const ReOrderPatchesButton = ({ id, render, reRender, handleReOrder, open, getPa
       <FormControl>
         <FormControlLabel
           label={`POC: `}
+          color='secondary'
           value={member} 
           labelPlacement='start'
           control={
-            <TextField sx={{ m: 1, width: '30ch' }} label='Name' variant="outlined" onChange={(event) => setMember(event.target.value)}/>
+            <TextField sx={{ m: 1, width: '30ch' }} color='secondary' label='Name' variant="outlined" onChange={(event) => setMember(event.target.value)}/>
           } />
       </FormControl>
-      <Button onClick={() => handleSubmit()} variant='outlined'>Submit</Button>
+      <Button color='secondary' onClick={() => handleSubmit()} variant='outlined'>Submit</Button>
     </Item>
 
     return (
         <Grid item xs={10}>
-        <Button variant='outlined' onClick={handleReOrder}>Re-Order Form</Button>
+        <Button color='secondary' variant='outlined' onClick={handleReOrder}>Re-Order Form</Button>
         <Modal
           open={open}
           onClose={handleReOrder}

@@ -61,14 +61,14 @@ const AddMemberButton = ({ setUpdate, update, members, setOpen, setClose, open, 
   <FormGroup>
     {memberList.map( member => {
       return(
-        <FormControlLabel disabled={decideValue(member.name)} value={member.id} control={<Checkbox onClick={(event) => handleCheck(event)} />} label={member.name}/>
+        <FormControlLabel color='secondary' disabled={decideValue(member.name)} value={member.id} control={<Checkbox color='secondary' onClick={(event) => handleCheck(event)} />} label={member.name}/>
       )
     })}
   </FormGroup>
 
   return(
     <Grid item xs={10}>
-      <Button variant='outlined' onClick={setOpen}>Add</Button>
+      <Button color='secondary' variant='outlined' onClick={setOpen}>Add</Button>
       <Modal
         open={open}
         onClose={setClose}
@@ -81,7 +81,7 @@ const AddMemberButton = ({ setUpdate, update, members, setOpen, setClose, open, 
           </Typography>
           <form id="modal-modal-description">
             {memberComponent}
-            <Button onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Add</Button>
+            <Button color='secondary' onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Add</Button>
           </form>
         </Box>
       </Modal>

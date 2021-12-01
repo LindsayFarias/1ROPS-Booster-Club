@@ -40,7 +40,7 @@ function DateButton({ eventId, dateOpen, open, dateClose}) {
 
   return (
     <Grid item xs={10}>
-      <Button variant="outlined" onClick={dateOpen}>Update Date</Button>
+      <Button color='secondary' variant="outlined" onClick={dateOpen}>Update Date</Button>
       <Modal
         open={open}
         onClose={dateClose}
@@ -57,10 +57,10 @@ function DateButton({ eventId, dateOpen, open, dateClose}) {
                 label="DateTime picker"
                 value={date}
                 onChange={handleChange}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField color='secondary' {...params} />}
                 />
             </LocalizationProvider>
-            <Button onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Update Date</Button>
+            <Button color='secondary' onClick={()=> submitPost()} style={{float: 'right'}}variant='outlined'>Update Date</Button>
           </form>
         </Box>
       </Modal>
