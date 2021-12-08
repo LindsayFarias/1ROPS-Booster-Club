@@ -23,9 +23,11 @@
     * Give the option to add re-order information
     * Give the option to update sales information
 ### Treasury Page
-    * Give a balance
+    * Give a balance 
     * Show income from patches and events
     * Show receipts
+    * Filter receipts
+    * Retrieve income/expenditures for a given timeframe
     
 ## Learning Tool
 1. npx create-react-app (app name)

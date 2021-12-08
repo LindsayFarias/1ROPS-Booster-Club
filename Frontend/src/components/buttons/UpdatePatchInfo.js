@@ -15,7 +15,7 @@ const style = {
 };
 
 const UpdatePatchInfoButton = ({ handleUpdate, open, id, render, reRender }) => {
-  const { patch } = useContext(AppContext);
+  const { patch, post } = useContext(AppContext);
   const [income, setIncome] = useState(null);
   const [number, setNumber] = useState(null);
   const [price, setPrice] = useState(null);
@@ -28,13 +28,17 @@ const UpdatePatchInfoButton = ({ handleUpdate, open, id, render, reRender }) => 
     console.log(income);
   }, [income] )
   
-  const submitPost = () => {
+  const submitPost = async () => {
     let update = {
-      amount_sold: number,
+      amount_sold: number
+    };
+    let incomeUpdate = {
       income: income
     };
-    const url = `/1rops/patches/${id}`;
-    patch(url, update);
+    
+    await patch(`/1rops/patches/${id}`, update);
+    await post(`/1rops/patches/income/${id}`, incomeUpdate);
+
     setIncome(null);
     setNumber(null);
     setPrice(null);

@@ -12,8 +12,6 @@ const Patchpage = ({patches, getPatches}) => {
   const [number, setNumber] = useState(null);
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState(null);
-  const [income, setIncome] = useState(null);
-  const [sold, setSold] = useState(null);
   const [member, setMember] = useState(null);
   const [render, reRender] = useState(0);
 
@@ -23,15 +21,15 @@ const Patchpage = ({patches, getPatches}) => {
 
   useEffect(() => {
     console.log('Name', name);
-  }, [name, number, date, amount, income, sold, member])
+  }, [name, number, date, amount, member])
 
   const handleSubmit = async () => {
 
     const input = {
       patchName: name,
       amount_ordered: number,
-      amount_sold: sold,
-      income: income,
+      amount_sold: 0,
+      income: 0,
       reason: `${name} patches`,
       expenditures: amount,
       date_ordered: date,
@@ -42,9 +40,7 @@ const Patchpage = ({patches, getPatches}) => {
 
     setName(null);
     setAmount(null);
-    setIncome(null);
     setDate(new Date());
-    setSold(null);
     setMember(null);
     setNumber(null);
 
@@ -119,16 +115,6 @@ const Patchpage = ({patches, getPatches}) => {
       </FormControl>
       <FormControl>
         <FormControlLabel
-          label={`Number of Patches Sold: `}
-          value={sold} 
-          labelPlacement='start'
-          color='secondary'
-          control={
-            <TextField sx={{ m: 1, width: '25ch' }} color='secondary' label='Number' variant="outlined" onChange={(event) => setSold(event.target.value)}/>
-        } />
-      </FormControl>
-      <FormControl>
-        <FormControlLabel
           label={`Cost of Patches: `}
           labelPlacement='start'
           color='secondary'
@@ -144,25 +130,6 @@ const Patchpage = ({patches, getPatches}) => {
               }}
               variant="outlined" 
               onChange={(event) => setAmount(event.target.value)}/>
-        } />
-      </FormControl>
-      <FormControl>
-        <FormControlLabel
-          label={`Money Made: `}
-          labelPlacement='start'
-          color='secondary'
-          control={
-            <TextField 
-              sx={{ m: 1, width: '25ch' }}
-              value={income}
-              color='secondary' 
-              id='amount'
-              label='Amount'
-              InputProps={{
-                startAdornment: <InputAdornment position="start">$</InputAdornment>,
-              }}
-              variant="outlined" 
-              onChange={(event) => setIncome(event.target.value)}/>
         } />
       </FormControl>
       <FormControl>

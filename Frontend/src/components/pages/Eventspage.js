@@ -8,7 +8,7 @@ import DateButton from '../buttons/DateButton';
 import AddMemberButton from '../buttons/AddMemberButton';
 
 function Eventspage( { setMembers, members, eventGetter, details, netIncome, netIncomeGetter, memberGetter } ) {
-  const { Item, deletion } = useContext(AppContext);
+  const { Item, deletion, dateTimeConverter } = useContext(AppContext);
   let committee, event, receipts;
   const params = useParams();
   const eventId = params.eventId;
@@ -63,13 +63,16 @@ function Eventspage( { setMembers, members, eventGetter, details, netIncome, net
     </List>
 
     let expenditure = 0;
-    details.receipts.forEach(receipt => expenditure += receipt.expenditures)
+    details.receipts.forEach(receipt => expenditure += receipt.expenditures);
+
+    let income = 0;
+    details.income.forEach(el => income += el.amount);
     
     event = <Paper elevation={3} style={{textAlign: 'center', padding: 3}}>
         <Typography variant='h5'>{details.event[0].title}</Typography>
         <p>{details.event[0].about}</p>
-        <p>Date of Event: {details.event[0].date}</p>
-        <p>Income: ${details.event[0].income}</p>
+        <p>Date of Event: {dateTimeConverter(details.event[0].date)}</p>
+        <p>Income: ${income}</p>
         <p>Expenditures: ${expenditure}</p>
         <p>Net Income: ${netIncome.total}</p>
         <Box display='flex'>

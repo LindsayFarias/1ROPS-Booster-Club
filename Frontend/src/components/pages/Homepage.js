@@ -9,7 +9,7 @@ import AddEventButton from '../buttons/AddEventButton';
 function Homepage({ getEvents, events, getMembers, members }) {
   
   let eventResult, memberResult;
-  const { Item, deletion } = useContext(AppContext);
+  const { Item, deletion, dateTimeConverter } = useContext(AppContext);
 
   const [eventOpener, setEventOpen] = useState(null);
   const [update, setUpdate] = useState(0);
@@ -42,7 +42,7 @@ function Homepage({ getEvents, events, getMembers, members }) {
         <Grid style={{padding: 1}} key={event.id} item xs={12}>
           <Item data-testid='eventCard'>
             <h3>{event.title}</h3> <br/>
-            <h4>{event.date}</h4> <br/>
+            <h4>{dateTimeConverter(event.date)}</h4> <br/>
             <h4>{event.about}</h4> <br/>
             <Grid container xs={12}>
               <Grid item xs={4}></Grid>

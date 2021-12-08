@@ -123,7 +123,7 @@ const SinglePatchpage = ({ getPatches, getPatch, preOrder, patches, netIncome, g
         <h3>{patchData.patchName}</h3>
         <h3>Amount Ordered: {patchData.amount_ordered} patches</h3>
         <h3>Amount Sold: {patchData.amount_sold} patches</h3> 
-        <h3>Income: ${patchData.income}</h3>
+        <h3>Income: ${netIncome.income}</h3>
         <h3>Net Income: ${netIncome.total}</h3>
         <Grid container>
           <Grid item xs={2}/>

@@ -17,10 +17,11 @@ const style = {
 };
 
 const Treasurypage = ({money, getMoney, receipts, getReceipts}) => {
-  const { Item } = useContext(AppContext);
+  const { Item, dateTimeConverter } = useContext(AppContext);
   const [start, setStartDate] = useState(null);
   const [end, setEndDate] = useState(new Date());
-  const [period, setPeriod] = useState(null);
+  const [periodExp, setPeriodExp] = useState(null);
+  const [periodInc, setPeriodInc] = useState(null);
   const [filteredReceipts, setReceipts] = useState([]);
   const [receipt, setOpen] = useState(false);
   const [income, setIncome] = useState(false);
@@ -31,10 +32,11 @@ const Treasurypage = ({money, getMoney, receipts, getReceipts}) => {
   useEffect(() => {
     getMoney();
     getReceipts();
-    setEndDate(new Date());
-    setStartDate(null);
+    setPeriodExp(null);
+    setPeriodInc(null)
     setReceipts([]);
-    setPeriod(null)
+    setStartDate(null);
+    setEndDate(new Date());
   }, []);
 
   useEffect(() => {
@@ -42,7 +44,13 @@ const Treasurypage = ({money, getMoney, receipts, getReceipts}) => {
     let receiptYear = [];
     let receiptMonth = [];
     let receiptDay = [];
+    let incomeArray = [];
+    let incomeYear = [];
+    let incomeMonth = [];
+    let incomeDay = [];
     let periodTotal = null;
+    let incomeTotal = null;
+
     if (receipts !== null) {
       for(let i = 0; i < receipts.length; i++) {
         let year = receipts[i].date.slice(0, 4);
@@ -64,27 +72,75 @@ const Treasurypage = ({money, getMoney, receipts, getReceipts}) => {
                 let day = receiptMonth[k].date.slice(8, 10);
                 day = parseInt(day);
                 if(
-                  day >= start.day &&
-                  day <= end.day
+                  day <= end.day &&
+                  day >= start.day
                 ){
                   receiptDay.push(receiptMonth[k]);
-                  receiptArray = [...new Set(receiptDay)];
-                  setReceipts(receiptArray)
-                  periodTotal = 0;
+                } else if (
+                  month > start.month &&
+                  day < start.day
+                ) {
+                  receiptDay.push(receiptMonth[k]);
                 }
               }
             }
           }
         }
       }
+      receiptArray = [...new Set(receiptDay)];
+      setReceipts(receiptArray)
+      periodTotal = 0;
       receiptArray.forEach(receipt => periodTotal += receipt.expenditures);
-      setPeriod(periodTotal);
+      setPeriodExp(periodTotal);
+    }
+
+    if (money !== null) {
+        for(let i = 0; i < money.income.length; i++) {
+          let year = money.income[i].date.slice(0, 4);
+          year = parseInt(year, 10);
+          if (
+            year <= end.year &&
+            year >= start.year 
+          ) {
+            incomeYear.push(money.income[i])
+            for (let j = 0; j < incomeYear.length; j++) {
+              let month = incomeYear[j].date.slice(5, 7);
+              month = parseInt(month, 10);
+              if(
+                month <= end.month &&
+                month >= start.month
+              ) {
+                incomeMonth.push(incomeYear[j])
+                for (let k = 0; k < incomeMonth.length; k++) {
+                  let day = incomeMonth[k].date.slice(8, 10);
+                  day = parseInt(day);
+                  if(
+                    day <= end.day &&
+                    day >= start.day
+                  ){
+                    incomeDay.push(incomeMonth[k]);
+                  } else if (
+                    month > start.month &&
+                    day < start.day
+                  ) {
+                    incomeDay.push(incomeMonth[k]);
+                  }
+                }
+              }
+            }
+          }
+        }
+        incomeArray = [...new Set(incomeDay)];
+        console.log(incomeArray)
+        incomeTotal = 0;
+        incomeArray.forEach(el => incomeTotal += el.amount);
+        setPeriodInc(incomeTotal);
     };
   }, [start, end])
   
   let moneyTotal;
   if(money !== null) {
-    moneyTotal = <Typography variant='h6'>Total: ${money.total}</Typography>
+    moneyTotal = <Typography variant='h6'>Total: ${money.result}</Typography>
   } else {
     moneyTotal = <h3>Total: $0</h3>
   }
@@ -103,7 +159,7 @@ const Treasurypage = ({money, getMoney, receipts, getReceipts}) => {
       <Grid item xs={3}>
         <Item>
           <h4>{receipt.reason}</h4>
-          <h5>Date: {receipt.date}</h5>
+          <h5>Date: {dateTimeConverter(receipt.date)}</h5>
           <h5>Expenditure: ${receipt.expenditures}</h5>
           <h5>Associated Member: {receipt.associated_member}</h5>
       </Item>
@@ -115,7 +171,7 @@ const Treasurypage = ({money, getMoney, receipts, getReceipts}) => {
       <Grid item xs={3}>
         <Item>
           <h4>{receipt.reason}</h4>
-          <h5>Date: {receipt.date}</h5>
+          <h5>Date: {dateTimeConverter(receipt.date)}</h5>
           <h5>Expenditure: ${receipt.expenditures}</h5>
           <h5>Associated Member: {receipt.associated_member}</h5>
       </Item>
@@ -160,7 +216,8 @@ const Treasurypage = ({money, getMoney, receipts, getReceipts}) => {
               </LocalizationProvider>}
           />
         </FormControl>
-        <Typography variant='p'>Total Expenditures For Period: ${period}</Typography>
+        <Typography variant='p'>Total Expenditures For Period: ${periodExp}</Typography>
+        <Typography variant='p'>Total Income for Period: ${periodInc}</Typography>
         <ReceiptButton eventId={0} receiptOpen={handleReceipt} open={receipt} receiptClose={handleReceipt}/>
         <IncomeButton eventId={0} incomeOpen={handleIncome} open={income} incomeClose={handleIncome} />
       </Stack>
