@@ -5,7 +5,6 @@ exports.up = function(knex) {
       table.text('title');
       table.datetime('date', options={useTz: true});
       table.text('about');
-      table.integer('income');
   });
 };
 

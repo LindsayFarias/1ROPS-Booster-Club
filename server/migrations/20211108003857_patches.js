@@ -6,7 +6,6 @@ exports.up = function(knex) {
       table.integer('amount_ordered');
       table.integer('amount_sold');
       table.date('date_ordered');
-      table.integer('income');
   });
 };
 
